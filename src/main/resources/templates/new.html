@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a new user</title>
+</head>
+<body>
+<!--/*@thymesVar id="user" type="java"*/-->
+<form th:method="post" th:action="@{/}" th:object="${user}">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+    <br>
+    <label for="lastname">Lastname</label>
+    <input type="text" th:field="*{lastName}" id="lastname">
+    <br>
+    <label for="year_of_birth">Year of birth</label>
+    <input type="number" th:field="*{yearOfBirth}" id="year_of_birth">
+    <br>
+    <input type="submit" value="Add user">
+</form>
+</body>
+</html>
