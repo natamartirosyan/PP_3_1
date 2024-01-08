@@ -1,6 +1,7 @@
 package org.natamartirosyan.springboot.PP_3_1.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table
@@ -8,8 +9,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "first_name")
+    @NotEmpty(message = "Name cannot be empty")
+    @Pattern(regexp = "[a-zA-Z_0-9]+", message = "Name can contain only letters and/or numbers")
+    @Size(min = 1, max = 50, message = "Name should be between 1 and 50 characters")
     private String name;
+
+    @Column(name = "last_name")
+    @NotBlank(message = "Lastname cannot be empty")
+    @Pattern(regexp = "[a-zA-Z_0-9]+", message = "Lastname can contain only letters and/or numbers")
+    @Size(min = 1, max = 50, message = "Name should be between 1 and 50 characters")
     private String lastName;
+
+    @Column(name = "year_of_birth")
+    @NotNull(message = "Please enter correct year of birth")
+    @Min(value = 1900, message = "Not less than 1900")
+    @Max(value = 2005)
     private int yearOfBirth;
 
     public User() {

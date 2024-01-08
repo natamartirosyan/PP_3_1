@@ -1,10 +1,12 @@
 package org.natamartirosyan.springboot.PP_3_1.controller;
 
+import jakarta.validation.Valid;
 import org.natamartirosyan.springboot.PP_3_1.model.User;
 import org.natamartirosyan.springboot.PP_3_1.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -36,7 +38,11 @@ public class UserController {
     }
 
     @PostMapping()
-    public String addUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
         userService.addUser(user);
         return "redirect:/";
     }
@@ -47,7 +53,11 @@ public class UserController {
         return "edit";
     }
     @PostMapping("/{id}/save")
-    public String saveUser (@ModelAttribute("user") User user) {
+    public String saveUser (@ModelAttribute("user") @Valid User user,
+                            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
         userService.editUserById(user);
         return "redirect:/";
     }
