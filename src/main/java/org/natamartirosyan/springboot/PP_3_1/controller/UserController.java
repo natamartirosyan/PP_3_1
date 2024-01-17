@@ -1,6 +1,6 @@
 package org.natamartirosyan.springboot.PP_3_1.controller;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.natamartirosyan.springboot.PP_3_1.model.User;
 import org.natamartirosyan.springboot.PP_3_1.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,8 @@ public class UserController {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
-    @GetMapping ("/show")
+
+    @GetMapping("/show")
     public String userById(@RequestParam("id") int id, Model model) {
         model.addAttribute("user", userService.findUser(id));
         return "userID";
@@ -52,17 +53,19 @@ public class UserController {
         model.addAttribute("user", userService.findUser(id));
         return "edit";
     }
+
     @PostMapping("/{id}/save")
-    public String saveUser (@ModelAttribute("user") @Valid User user,
-                            BindingResult bindingResult) {
+    public String saveUser(@ModelAttribute("user") @Valid User user,
+                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
         userService.editUserById(user);
         return "redirect:/";
     }
+
     @PostMapping("/delete")
-    public String deleteUser (@RequestParam("id") int id, Model model) {
+    public String deleteUser(@RequestParam("id") int id) {
         userService.removeUserById(id);
         return "redirect:/";
     }
