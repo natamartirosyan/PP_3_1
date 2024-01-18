@@ -10,11 +10,6 @@
 <a th:text="${user.getLastName()}"></a>
 <a th:text="${user.getYearOfBirth()}"></a>
 </p>
-<p>
-<form th:method="post" th:action="@{/delete(id=${user.getId()})}" th:object="${user}">
-    <input type="submit" value="Delete user">
-</form>
-</p>
 <br>
 <a href="/">Back to the list</a>
 </body>
